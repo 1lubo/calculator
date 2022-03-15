@@ -50,18 +50,23 @@ buttons.forEach(item => {
           if (input === '=' && memory.length > 2) {
             
             let result = operate(memory);
+            let resLength = String(result).length;
             
+            if (typeof(result) === 'string'){
+              result = parseFloat(result);
+            }
 
-            if (result < 10**9) {       
+            if (resLength < 10) {       
                            
               display.innerText = result;
 
-            } else if (result > 10**9 ){                            
+            } else if (resLength > 11 ){
+                                      
               display.style.fontSize = "30px"; // make font smaller for larger results    
               display.innerText = result.toPrecision(16);
               
             } else if (!isDigit(result)) {
-              display.style.fontSize = "30px"; // make font smaller for larger results    
+              display.style.fontSize = "30px"; // make font smaller for error message   
               display.innerText = result;
               
             }
@@ -76,7 +81,7 @@ buttons.forEach(item => {
             display.innerText = '';
           }
 
-          if (input === "⇦"){            
+          if (input === "⇦" && number.length > 0){            
             number = number.slice(0, -1);
             display.innerText = number;
           }
